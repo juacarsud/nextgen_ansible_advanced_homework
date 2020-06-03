@@ -46,7 +46,7 @@
     path: /etc/openstack/clouds.yaml
     block: |2
       clouds:
-        openstack:
+        "{{ cloud_name}}":
           auth:
             auth_url: "{{ item.auth_url }}"
             username: "{{ item.username }}"
