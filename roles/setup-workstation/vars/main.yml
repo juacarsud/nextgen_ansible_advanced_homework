@@ -1,2 +1,92 @@
 ---
 # vars file for setup-workstation
+cloud_name: ospcloud
+state: present
+
+yum_packages:
+  - python3
+  - git
+
+pip_packages:
+  - ansble
+  - openstacksdk
+
+osp_networks:
+  # Public Facing Network   
+  external:
+    network_name: ext_network
+    subnet_name: ext_subnet
+    cidr_network: "10.10.10.0/24"
+    external: true
+
+
+  # Private Facing Network   
+  internal:
+    network_name: int_network
+    subnet_name: int_subnet
+    cidr_network: "20.20.20.0/24"
+    external: false
+
+  # Public Facing Router connecting the two networks
+osp_router:
+  router:
+    name: router
+    network: ext_network
+
+osp_flavor:
+  flavor:
+    name: m2.small
+    ram: 2048
+    vcpus: 1
+    disk: 10
+
+osp_image:
+  rhel:
+    name: rhel-guest
+    container_format: bare
+    disk_format: qcow2
+    filename: /tmp/rhel.qcown2
+
+osp_keypair:
+  keypair:
+    name: ansible_ssh
+    public_key: "{{ ansible_env.HOME }}/.ssh/test_id_rsa.pub"
+
+osp_sg:
+  - sg:
+    name: apps
+    description: ports_open
+  - frontend:
+    name: frontend
+    description: ports_open
+  - db:
+    name: apps
+    description: ports_open
+
+osp_sg_rules:
+  - apps:
+    sg: apps
+    protocol: tcp
+    rules:
+      - port: '8080'
+        ip_preffix: '0.0.0.0/0'
+      - port: '22'
+        ip_preffix: '0.0.0.0/0'
+  - frontend:
+    sg: frontend
+    protocol: tcp
+    rules:
+      - port: '80'
+        ip_preffix: '0.0.0.0/0'
+      - port: '443'
+        ip_preffix: '0.0.0.0/0'
+      - port: '22'
+        ip_preffix: '0.0.0.0/0'
+  - db:
+      sg: db
+      protocol: tcp
+      rules:
+        - port: '5432'
+          ip_preffix: '20.20.20.0/24'
+        - port: '22'
+          ip_preffix: '0.0.0.0/0'

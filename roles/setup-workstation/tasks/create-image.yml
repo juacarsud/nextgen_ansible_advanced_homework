@@ -6,11 +6,12 @@
       - tested
 - name: Create openstack image
   os_image:
-     cloud: ospcloud
-     name: rhel-guest
-     container_format: bare
-     disk_format: qcow2
-     state: present
-     filename: /tmp/rhel.qcow2
+     cloud: "{{ cloud_name }}"
+     name: "{{ item.value.name}}"
+     container_format: "{{ item.value.container_format }}"
+     disk_format: "{{ item.value.disk_format }}"
+     state: "{{ state }}"
+     filename: "{{ item.value.filename }}"
+  with_dict: "{{ osp_image }}"
   tags:
       - tested
