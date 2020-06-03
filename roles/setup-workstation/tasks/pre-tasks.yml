@@ -16,7 +16,11 @@
     name: "{{ item }}"
     state: latest
   when: 'item not in r_yum_packages.ansible_facts.packages'
+<<<<<<< Updated upstream
   loop: "{{ yum_packages }}"
+=======
+  with_items: "{{ yum_packages }}"
+>>>>>>> Stashed changes
 
 # - name: Install required packages 
 #   yum: 
@@ -46,25 +50,30 @@
     file: vars/osp_clouds_vars.yml
 
 
+# - name: Create clouds.yaml file
+#   blockinfile:
+#     create: yes
+#     path: /etc/openstack/clouds.yaml
+#     block: |2
+#       clouds:
+#         "{{ cloud_name}}":
+#           auth:
+#             auth_url: "{{ item.auth_url }}"
+#             username: "{{ item.username }}"
+#             password: "{{ item.password }}"
+#             project_id: "{{ item.project_id }}"
+#             project_name: "{{ item.project_name }}"
+#             user_domain_name: "{{ item.user_domain_name }}"
+#           region_name: "{{ item.region_name}}"
+#           interface: "{{ item.interface }}"
+#           identity_api_version: 3
+#         ansible:
+#           use_hostnames: True
+#           expand_hostvars: False
+#           fail_on_errors: True
+#   with_items: "{{ osp_cloud_file }}"
+
 - name: Create clouds.yaml file
-  blockinfile:
-    create: yes
-    path: /etc/openstack/clouds.yaml
-    block: |2
-      clouds:
-        "{{ cloud_name}}":
-          auth:
-            auth_url: "{{ item.auth_url }}"
-            username: "{{ item.username }}"
-            password: "{{ item.password }}"
-            project_id: "{{ item.project_id }}"
-            project_name: "{{ item.project_name }}"
-            user_domain_name: "{{ item.user_domain_name }}"
-          region_name: "{{ item.region_name}}"
-          interface: "{{ item.interface }}"
-          identity_api_version: 3
-        ansible:
-          use_hostnames: True
-          expand_hostvars: False
-          fail_on_errors: True
-  with_items: "{{ osp_cloud_file }}"
+  template:
+    src: clouds.yaml.j2
+    dest: /etc/openstack/
