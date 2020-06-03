@@ -9,12 +9,14 @@
     manager: auto
   register: r_yum_packages
 
+#- debug: var=r_yum_packages.ansible_facts
+
 - name: Install packages for Openstack configuration
   yum:
     name: "{{ item }}"
     state: latest
-  with_items: "{{ yum_packages }}"
   when: 'item not in r_yum_packages.ansible_facts.packages'
+  loop: "{{ yum_packages }}"
 
 # - name: Install required packages 
 #   yum: 
@@ -34,11 +36,15 @@
     state: latest
     extra_args: -U
     executable: pip3
-  with_items: "{{ pip_packages }}"
-  when: 'item not in r_pip_packages.packages.pip3.6'
+  loop: "{{ pip_packages }}"
+  when: 'item not in r_pip_packages.packages.pip3'
 
 # - name: Install openstack library
 #   command: pip3 install ansible openstacksdk -U
+
+- include_vars:
+    file: vars/osp_clouds_vars.yml
+
 
 - name: Create clouds.yaml file
   blockinfile:

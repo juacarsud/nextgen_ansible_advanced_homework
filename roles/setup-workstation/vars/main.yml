@@ -8,7 +8,7 @@ yum_packages:
   - git
 
 pip_packages:
-  - ansble
+  - ansible
   - openstacksdk
 
 osp_networks:
