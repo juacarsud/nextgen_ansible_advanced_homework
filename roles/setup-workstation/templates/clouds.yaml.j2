@@ -1,10 +1,10 @@
 clouds:
-  "{{ cloud_name }}":
+  {{ cloud_name }}:
     auth:
-      auth_url: "{{ osp_cloud_file.auth_url }}"
+      auth_url: {{ osp_cloud_file.auth_url }}
       username: "{{ osp_cloud_file.username }}"
       password: "{{ osp_cloud_file.password }}"
-      project_id: "{{ osp_cloud_file.project_id }}"
+      project_id: {{ osp_cloud_file.project_id }}
       project_name: "{{ osp_cloud_file.project_name }}"
       user_domain_name: "{{ osp_cloud_file.user_domain_name }}"
     region_name: "{{ osp_cloud_file.region_name}}"
