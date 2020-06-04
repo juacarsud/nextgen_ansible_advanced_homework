@@ -1,15 +1,15 @@
 - name: Configuration of Public and Private Networks
   os_network:
-    cloud: "{{ item.value.cloud_name }}"
-    state: "{{ item.value.state }}"
+    cloud: "{{ cloud_name }}"
+    state: "{{ state }}"
     name: "{{ item.value.network_name }}"
     external: "{{ item.value.external }}"
   with_dict: "{{ osp_networks }}"
 
 - name: Configuration of Subnets for Public and Private SubNets
   os_subnet:
-    cloud: "{{ item.value.cloud_name }}"
-    state: "{{ item.value.state }}"
+    cloud: "{{ cloud_name }}"
+    state: "{{ state }}"
     network_name: "{{ item.value.network_name  }}"
     name: "{{ item.value.subnet_name  }}"
     cidr: "{{ item.value.cidr_network }}"
@@ -25,8 +25,8 @@
 
 - name: Create Router
   os_router:
-    cloud: "{{ item.value.cloud_name }}"
-    state: "{{ item.value.state }}"
+    cloud: "{{ cloud_name }}"
+    state: "{{ state }}"
     name: "{{ item.value.name }}"
     network: "{{ item.value.network }}"
     external_fixed_ips:

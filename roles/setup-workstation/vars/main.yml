@@ -45,7 +45,7 @@ osp_image:
     name: rhel-guest
     container_format: bare
     disk_format: qcow2
-    filename: /tmp/rhel.qcown2
+    filename: /tmp/rhel.qcow2
 
 osp_keypair:
   keypair:
@@ -60,7 +60,7 @@ osp_sg:
     name: frontend
     description: ports_open
   - db:
-    name: apps
+    name: db
     description: ports_open
 
 osp_sg_rules:

@@ -8,6 +8,6 @@
   os_keypair:
     cloud: "{{ cloud_name }}"
     state: "{{ state }}"
-    name: "{{ item.name }}"
-    public_key_file: "{{ item.public_key }}"
-  with_items: "{{ osp_keypair }}"
+    name: "{{ item.value.name }}"
+    public_key_file: "{{ item.value.public_key }}"
+  with_dict: "{{ osp_keypair }}"
