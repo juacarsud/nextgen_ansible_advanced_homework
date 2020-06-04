@@ -4,7 +4,7 @@ cloud_name: ospcloud
 state: present
 
 yum_packages:
-  - python3
+  - python36
   - git
 
 pip_packages:
