@@ -10,6 +10,7 @@
 
 - hosts: workstation
   become: yes
+  gather_facts: true
   roles:
     - setup-workstation
 

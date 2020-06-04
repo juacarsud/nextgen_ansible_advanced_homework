@@ -16,11 +16,7 @@
     name: "{{ item }}"
     state: latest
   when: 'item not in r_yum_packages.ansible_facts.packages'
-<<<<<<< Updated upstream
   loop: "{{ yum_packages }}"
-=======
-  with_items: "{{ yum_packages }}"
->>>>>>> Stashed changes
 
 # - name: Install required packages 
 #   yum: 
