@@ -83,10 +83,10 @@ osp_sg_rules:
       - port: '22'
         ip_preffix: '0.0.0.0/0'
   - db:
-      sg: db
-      protocol: tcp
-      rules:
-        - port: '5432'
-          ip_preffix: '20.20.20.0/24'
-        - port: '22'
-          ip_preffix: '0.0.0.0/0'
+    sg: db
+    protocol: tcp
+    rules:
+      - port: '5432'
+        ip_preffix: '20.20.20.0/24'
+      - port: '22'
+        ip_preffix: '0.0.0.0/0'
