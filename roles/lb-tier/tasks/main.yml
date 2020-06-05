@@ -1,3 +1,20 @@
 ---
+- name: Install packages
+  yum:
+    name:
+    - haproxy
+    - python2-httpie
+    state: latest
+  when: three_tier_frontend_install_packages | bool
+  
+- name: Set proxy configuration
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart-haproxy
 
-
+- name: Start and enable HAProxy
+  service:
+    name: haproxy
+    state: started
+    enabled: true

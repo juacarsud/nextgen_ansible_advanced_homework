@@ -1,2 +1,25 @@
 payload:          tomcat
 tomcat_web_root:  /usr/share/tomcat/webapps/ROOT
+
+app_tier_yum_packages:
+  - httpd
+  - tomcat
+
+app_tier_dirs:
+  - /var/lib/tomcat/webapps/ROOT
+  - /var/lib/tomcat/webapps/ansible
+
+app_tier_write_webapps:
+  webapps_root:
+    path: /var/lib/tomcat/webapps/ROOT/index.html
+    mode: 0644
+  webapps_ansible:
+    path: /var/lib/tomcat/webapps/ansible/index.html
+
+app_tier_start_services:
+  tomcat:
+    name: tomcat
+    state: started
+  httpd:
+    name: httpd
+    state: started

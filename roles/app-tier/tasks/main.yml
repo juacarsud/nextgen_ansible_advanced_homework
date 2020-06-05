@@ -1,2 +1,28 @@
 ---
+- name: install tomcat ans httpd
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ app_tier_yum_packages }}"
+
+- name: create ansible tomcat directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop: "{{ app_tier_dirs }}"
+
+- name: Write webapps/ROOT/index.html and webapp/ansible
+  template:
+    src: index.html.j2
+    dest: "{{ item.value.path }}"
+    mode: "{{ item.value.mode | default(omit) }}"
+  with_dict: "{{ app_tier_write_webapps }}"
+
+- name: start and enable tomcat | httpd
+  service:
+    name: "{{ item.value.name }}"
+    state: "{{ item.value.state}}"
+    enabled: true
+  with_dict: "{{ app_tier_start_services }}"
+  notify: restart_tom
 
