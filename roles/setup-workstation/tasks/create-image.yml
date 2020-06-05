@@ -7,7 +7,7 @@
 - name: Create openstack image
   os_image:
      cloud: "{{ cloud_name }}"
-     name: "{{ item.value.name}}"
+     name: "{{ item.value.name }}"
      container_format: "{{ item.value.container_format }}"
      disk_format: "{{ item.value.disk_format }}"
      state: "{{ state }}"

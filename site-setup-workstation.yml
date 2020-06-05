@@ -8,11 +8,11 @@
        group: workstation
 
 
-#- hosts: workstation
-#  become: yes
-#  gather_facts: true
-#  roles:
-#    - setup-workstation
+- hosts: workstation
+  become: yes
+  gather_facts: true
+  roles:
+    - setup-workstation
 
 - import_playbook: site-install-isolated-node.yaml 
 

@@ -32,14 +32,14 @@
     network: ext_network
     wait: true
     timeout: 200
-  with_dict: "{{osp_servers}}"
+  with_dict: "{{ osp_servers }}"
   tags:
   - test.servers
                                                                
 - name: Fetch OpenStack Server Facts
   os_server_info:
    cloud: ospcloud
-  register: result
+  register: r_os_server_info
       
 - name: Wait for server to be available
   wait_for:
@@ -49,4 +49,4 @@
     timeout: 600
   delegate_to: "{{ inventory_hostname }}"
   with_items:      
-     - "{{ result.openstack_servers }}"
+     - "{{ r_os_server_info.openstack_servers }}"

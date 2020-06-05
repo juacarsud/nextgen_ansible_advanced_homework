@@ -42,7 +42,8 @@
 # - name: Install openstack library
 #   command: pip3 install ansible openstacksdk -U
 
-- include_vars:
+- name: Inlude Variables
+  include_vars:
     file: vars/osp_clouds_vars.yml
 
 
