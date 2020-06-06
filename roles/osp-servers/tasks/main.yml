@@ -2,7 +2,7 @@
 # tasks file for osp.servers
 - name: Create OSP Server Instances 
   os_server:
-    cloud: ospcloud
+    cloud: openstack
     name: "{{ item.0.name }}"
     image: "{{ item.0.image }}"
     key_name: "{{ item.0.key_name }}"
@@ -15,8 +15,7 @@
     meta: "{{ item.1 }}"
     userdata: |
       #!/bin/bash
-      curl -o /tmp/openstack.pub http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub
-      cat /tmp/openstack.pub >> /home/cloud-user/.ssh/authorized_keys
+      echo "Provisioned on $(date)" >/root/provision.txt
   with_subelements:
     - "{{osp_servers}}"
     - meta
@@ -25,7 +24,7 @@
       
 - name: Add Floating IP to Servers
   os_floating_ip:
-    cloud: ospcloud
+    cloud: openstack
     state: present
     reuse: yes
     server: "{{ item.value.name }}"
@@ -38,7 +37,7 @@
                                                                
 - name: Fetch OpenStack Server Facts
   os_server_info:
-   cloud: ospcloud
+   cloud: openstack
   register: r_os_server_info
       
 - name: Wait for server to be available
