@@ -31,7 +31,7 @@
    #ansible_ssh_private_key_file: ~/.ssh/openstack.pub
    #ansible_ssh_user: cloud-user
    ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
-  with_items: "{{r_osp_server_info.openstack_servers}}"
+  with_items: "{{ r_osp_server_info.openstack_servers }}"
 
 - name: Add host
   add_host:
@@ -41,8 +41,9 @@
    #ansible_ssh_private_key_file: ~/.ssh/openstack.pub
   # ansible_ssh_user: cloud-user
    ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
-  with_items: "{{r_osp_server_info.openstack_servers}}"
-   - name: Wait for connection to hosts
+  with_items: "{{ r_osp_server_info.openstack_servers }}"
+
+- name: Wait for connection to hosts
   wait_for_connection:
     timeout: 600
 
