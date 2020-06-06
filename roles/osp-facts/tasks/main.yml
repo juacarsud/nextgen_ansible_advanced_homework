@@ -23,22 +23,22 @@
   loop_control:
     label: "{{ item.name }}"
 
-- name: Add host on inventory memory
-  add_host:
-    name: "{{ item.public_v4 }}"
-    ansible_host: "{{ item.public_v4 }}"
-    group: "{{ item.metadata.group }}"
-    #ansible_ssh_private_key_file: ~/.ssh/openstack.pub
-    #ansible_ssh_user: cloud-user
-    ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
-  with_items: "{{ r_osp_server_info.openstack_servers }}"
+# - name: Add host on inventory memory
+#   add_host:
+#     name: "{{ item.public_v4 }}"
+#     ansible_host: "{{ item.public_v4 }}"
+#     group: "{{ item.metadata.group }}"
+#     ansible_ssh_private_key_file: ~/.ssh/test_id_rsa
+#     #ansible_ssh_user: cloud-user
+#     ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
+#   with_items: "{{ r_osp_server_info.openstack_servers }}"
 
 - name: Add host
   add_host:
     name: "{{ item.public_v4 }}"
     ansible_host: "{{ item.public_v4 }}"
     group: "{{ item.metadata.deployment_name }}"
-    #ansible_ssh_private_key_file: ~/.ssh/openstack.pub
+    ansible_ssh_private_key_file: ~/.ssh/test_id_rsa
     #ansible_ssh_user: cloud-user
     ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
   with_items: "{{ r_osp_server_info.openstack_servers }}"
