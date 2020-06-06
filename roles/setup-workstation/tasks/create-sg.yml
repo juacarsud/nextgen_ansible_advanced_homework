@@ -22,7 +22,7 @@
 
 - name: Create Security Group Rule Apps
   os_security_group_rule:
-    cloud: ospcloud
+    cloud: "{{ cloud_name}}"
     security_group: apps
     protocol: tcp
     port_range_min: "{{ item.port }}"
@@ -34,7 +34,7 @@
 
 - name: Create Security Group Rule Frontend
   os_security_group_rule:
-    cloud: ospcloud
+    cloud: "{{ cloud_name }}"
     security_group: frontend
     protocol: tcp
     port_range_min: "{{ item.port }}"
@@ -47,7 +47,7 @@
 
 - name: Create Security Group Rule DB
   os_security_group_rule:
-    cloud: ospcloud
+    cloud: "{{ cloud_name }}"
     security_group: db
     protocol: tcp
     port_range_min: "{{ item.port }}"
